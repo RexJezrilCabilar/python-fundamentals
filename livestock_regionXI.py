@@ -21,8 +21,11 @@ df_long = livestock_price_regionXI.melt(
 )
 
 df_long['date'] = pd.to_datetime(df_long['month_year'], format='%Y %B')
+df_long['province'] = df_long['province'].str.strip('.')  .str.strip()
 
 df_long = df_long.drop(columns='month_year').sort_values(['province', 'commodity', 'date']).reset_index(drop=True)
 
 print(df_long.head(20))
-print(df_long.dtypes)
+print(df_long['price'].dtypes)
+print(df_long.duplicated().sum())
+print(df_long['province'].unique())
